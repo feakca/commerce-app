@@ -1,0 +1,83 @@
+﻿@model BasketModel
+
+<h1 class="h3">My Basket</h1>
+<hr>
+@if (Model.BasketItems.Count == 0)
+{
+    <div class="row">
+        <div class="col-md-12">
+            <div class="alert alert-warning">
+                No product in your basket.
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="row">
+        <div class="col-md-8">
+            <div class="text-left">
+                <h4>Basket Items</h4>
+            </div>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Product Image</th>
+                        <th>Product Name</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Total</th>
+                        <th>Options</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.BasketItems)
+                    {
+                        <tr>
+                            <td><img src="~/images/@item.ImageUrl" width="80" alt="" /></td>
+                            <td>@item.Name</td>
+                            <td>@item.Price</td>
+                            <td>@item.Quantity</td>
+                            <td>@(item.Price * item.Quantity)</td>
+                            <td>
+                                <form asp-controller="Basket" asp-action="RemoveFromBasket" method="post">
+                                    <input type="hidden" name="productId" value="@item.ProductId">
+                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-times fa-fw"></i></button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-4">
+            <div class="text-left">
+                <h4>Basket Summary</h4>
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <th>Basket Total:</th>
+                            <td>@Model.TotalPrice().ToString("c")</td>
+                        </tr>
+                        <tr>
+                            <th>Shipping:</th>
+                            <td>Free</td>
+                        </tr>
+                        <tr>
+                            <th>Order Total:</th>
+                            <td>@Model.TotalPrice().ToString("c")</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="text-center">
+                    <a asp-controller="Home" asp-action="Index" class="btn btn-primary">
+                        <i class="fa fa-arrow-circle-left fa-fw"></i> Continuo shopping..
+                    </a>
+                    <a asp-controller="Basket" asp-action="Checkout" class="btn btn-primary">
+                        <i class="fa fa-arrow-circle-right fa-fw"></i> Checkout..
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+}

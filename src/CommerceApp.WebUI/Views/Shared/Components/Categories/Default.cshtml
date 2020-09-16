@@ -1,0 +1,30 @@
+﻿@model List<Category>
+<div class="list-group">
+    @if (string.IsNullOrEmpty(ViewBag.selectedCategory))
+    {
+        <a href="/products" class="list-group-item list-group-item-action active">
+            Tüm Kategoriler
+        </a>
+    }
+    else
+    {
+        <a href="/products" class="list-group-item list-group-item-action">
+            Tüm Kategoriler
+        </a>
+    }
+    @foreach (var category in Model)
+    {
+        @if (category.Url == ViewBag.selectedCategory)
+        {
+            <a asp-controller="Shop" asp-action="List" asp-route-categoryUrl="@category.Url" class="list-group-item list-group-item-action active">
+                @category.Name
+            </a>
+        }
+        else
+        {
+            <a asp-controller="Shop" asp-action="List" asp-route-categoryUrl="@category.Url" class="list-group-item list-group-item-action">
+                @category.Name
+            </a>
+        }
+    }
+</div>

@@ -1,0 +1,60 @@
+﻿@model ProductListViewModel
+
+@if (Model.Products.Count == 0)
+{
+    @await Html.PartialAsync("_NoProduct")
+}
+
+else
+{
+    <div class="row">
+        <div class="col-md-3">
+            @await Html.PartialAsync("_Search", Model)
+            @await Component.InvokeAsync("Categories")
+        </div>
+        <div class="col-md-9">
+            <div class="row">
+                @foreach (var product in Model.Products)
+                {
+                    <div class="col-md-4 mb-2" id="product-flex-item">
+                        @await Html.PartialAsync("_Product", product)
+                    </div>
+                }
+            </div>
+            <div class="row">
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                        @if (Model.PageInfo != null)
+                        {
+                            @for (int i = 0; i < Model.PageInfo.TotalPages(); i++)
+                            {
+                                <li class="page-item @(Model.PageInfo.CurrentPage==(i+1)?"active":"")">
+                                    <a class="page-link" href="/products/@Model.PageInfo.CurrentCategory?q=@Model.PageInfo.Query&page=@(i+1)">@(i+1)</a>
+                                </li>
+                            }
+                        }
+                        else
+                        {
+                            @for (int i = 0; i < Model.PageInfo.TotalPages(); i++)
+                            {
+                                <li class="page-item @(Model.PageInfo.CurrentPage==(i+1)?"active":"")">
+                                    <a class="page-link" href="/products?q=@Model.PageInfo.Query&page=@(i+1)">@(i+1)</a>
+                                </li>
+                            }
+                        }
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+}
+
+@section Csses
+{
+    <style>
+        #product-flex-item {
+            display: flex;
+            align-items: stretch;
+        }
+    </style>
+}

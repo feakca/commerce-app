@@ -1,0 +1,27 @@
+﻿@model ProductListViewModel
+
+<div class="card mb-3">
+    <div class="card-header">
+        <h5>Ürün Ara</h5>
+    </div>
+    <div class="card-body">
+        @if (Model.PageInfo != null)
+        {
+            <form action="/products/@Model.PageInfo.CurrentCategory">
+                <div class="form-group">
+                    <input name="q" class="form-control mr-2" type="search" placeholder="Ürün Adı" aria-label="Search">
+                </div>
+                <button class="btn btn-danger btn-sm btn-block" type="submit">Ara</button>
+            </form>
+        }
+        else
+        {
+            <form class="form" action="/products">
+                <div class="form-group">
+                    <input name="q" class="form-control mr-2" type="search" placeholder="Ürün Adı" aria-label="Search">
+                </div>
+                <button class="btn btn-danger btn-sm btn-block" type="submit">Ara</button>
+            </form>
+        }
+    </div>
+</div>

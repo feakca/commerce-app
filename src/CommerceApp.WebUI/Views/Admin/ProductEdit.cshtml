@@ -1,0 +1,68 @@
+﻿@model ProductModel
+
+<h1 class="h3">Edit Product</h1>
+<hr>
+<form asp-controller="Admin" asp-action="ProductEdit" method="post" enctype="multipart/form-data">
+    <div class="row">
+        <div class="col-md-8">
+            <input type="hidden" asp-for="ProductId">
+            <div class="form-group row">
+                <label asp-for="Name" class="col-md-2 col-form-label"></label>
+                <div class="col-md-10">
+                    <input class="form-control" asp-for="Name">
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="Description" class="col-md-2 col-form-label"></label>
+                <div class="col-md-10">
+                    <textarea class="form-control" asp-for="Description"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="ImageUrl" class="col-md-2 col-form-label"></label>
+                <div class="col-md-10">
+                    <input type="hidden" class="form-control" asp-for="ImageUrl">
+                    <img src="~/images/@Model.ImageUrl" width="80" alt="">
+                    <input type="file" name="file" value="" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="Price" class="col-md-2 col-form-label"></label>
+                <div class="col-md-10">
+                    <input class="form-control" asp-for="Price">
+                    <span asp-validation-for="Price" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-10 offset-md-2">
+                    <button type="submit" class="btn btn-primary">Save Product</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" asp-for="IsHome">
+                <label class="custom-control-label" asp-for="IsHome"></label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" asp-for="IsApproved">
+                <label class="custom-control-label" asp-for="IsApproved"></label>
+            </div>
+            <hr>
+            @foreach (var item in (List<Category>)ViewBag.categories)
+            {
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="category_@item.CategoryId" name="categoryIds" value="@item.CategoryId" @(Model.SelectedCategories.Any(i => i.CategoryId == item.CategoryId) ? "checked" : "")>
+                    <label class="custom-control-label" for="category_@item.CategoryId">@item.Name</label>
+                </div>
+            }
+        </div>
+    </div>
+</form>
+
+@section Scripts
+{
+    <script>CKEDITOR.replace("Description");</script>
+}

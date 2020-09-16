@@ -1,0 +1,21 @@
+@model Product
+<div class="card">
+    <img class="card-img-top mb-2" src="~/images/@Model.ImageUrl" alt="">
+    <div class="card-body">
+        <h5 class="card-title">@Model.Name</h5>
+        <small class="text-muted">
+            <i class="fas fa-lira-sign"></i> @Model.Price
+        </small>
+    </div>
+    <div class="card-footer text-center">
+        <a asp-controller="Shop" asp-action="Details" asp-route-productUrl="@Model.Url" class="btn btn-primary btn-sm">Details</a>
+        @if (User.Identity.IsAuthenticated && User.IsInRole("Customer"))
+        {
+            <form asp-controller="Basket" asp-action="AddToBasket" style="display:inline;" method="post">
+                <input type="hidden" asp-for="ProductId">
+                <input type="hidden" name="quantity" value="1">
+                <button type="submit" class="btn btn-primary btn-sm">Add to Basket</button>
+            </form>
+        }
+    </div>
+</div>

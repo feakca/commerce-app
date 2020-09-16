@@ -1,0 +1,92 @@
+﻿@model OrderModel
+
+<h1 class="h3">Checkout</h1>
+<hr>
+<div class="row">
+    <div class="col-md-8">
+        <h4 class="mb-3">Order Details</h4>
+        <form asp-controller="Basket" asp-action="Checkout" method="post">
+            <input type="hidden" name="cardId" value="0">
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label asp-for="FirstName"></label>
+                    <input type="text" asp-for="FirstName" class="form-control" />
+                </div>
+                <div class="col-md-6">
+                    <label asp-for="LastName"></label>
+                    <input type="text" asp-for="LastName" class="form-control" />
+                </div>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Address"></label>
+                <textarea asp-for="Address" class="form-control"></textarea>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-3">
+                    <label asp-for="City"></label>
+                    <input type="text" asp-for="City" class="form-control" />
+                </div>
+                <div class="col-md-3">
+                    <label asp-for="County"></label>
+                    <input type="text" asp-for="County" class="form-control" />
+                </div>
+                <div class="col-md-3">
+                    <label asp-for="Phone"></label>
+                    <input type="text" asp-for="Phone" class="form-control" />
+                </div>
+                <div class="col-md-3">
+                    <label asp-for="Email"></label>
+                    <input type="text" asp-for="Email" class="form-control" />
+                </div>
+            </div>
+            <h4 class="mb-3">Payment Details</h4>
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label asp-for="CardName"></label>
+                    <input type="text" asp-for="CardName" class="form-control" />
+                </div>
+                <div class="col-md-6">
+                    <label asp-for="CardNumber"></label>
+                    <input type="text" asp-for="CardNumber" class="form-control" />
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <label asp-for="ExpirationMonth"></label>
+                    <input type="text" asp-for="ExpirationMonth" class="form-control" />
+                </div>
+                <div class="col-md-4">
+                    <label asp-for="ExpirationYear"></label>
+                    <input type="text" asp-for="ExpirationYear" class="form-control" />
+                </div>
+                <div class="col-md-4">
+                    <label asp-for="Cvv"></label>
+                    <input type="text" asp-for="Cvv" class="form-control" />
+                </div>
+            </div>
+            <hr class="mb-3">
+            <button type="submit" class="btn btn-primary btn-lg btn-block">Continue to complete..</button>
+        </form>
+    </div>
+    <div class="col-md-4">
+        <h4 class="mb3">
+            <span>Summary</span>
+        </h4>
+        <ul class="list-group mb-3">
+            @foreach (var item in Model.BasketModel.BasketItems)
+            {
+                <li class="list-group-item d-flex justify-content-between">
+                    <div>
+                        <h6>@item.Name</h6>
+                        <small class="text-muted">(x)@item.Quantity</small>
+                    </div>
+                    <span class="text-muted">@((item.Price*item.Quantity).ToString("c"))</span>
+                </li>
+            }
+            <li class="list-group-item d-flex justify-content-between">
+                <span>Total</span>
+                <strong>@Model.BasketModel.TotalPrice().ToString("c")</strong>
+            </li>
+        </ul>
+    </div>
+</div>

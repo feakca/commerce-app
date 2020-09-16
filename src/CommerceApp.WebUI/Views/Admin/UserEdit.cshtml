@@ -1,0 +1,62 @@
+﻿@model UserDetailModel
+
+<h1 class="h3">Edit User</h1>
+<hr>
+<div class="row">
+    <div class="col-md-12">
+        <form asp-controller="Admin" asp-action="UserEdit" method="post">
+            <div class="row">
+                <div class="col-md-8">
+                    <input type="hidden" asp-for="UserId">
+                    <div class="form-group row">
+                        <label asp-for="FirstName" class="col-md-2 col-form-label"></label>
+                        <div class="col-md-10">
+                            <input class="form-control" asp-for="FirstName">
+                            <span asp-validation-for="FirstName" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label asp-for="LastName" class="col-md-2 col-form-label"></label>
+                        <div class="col-md-10">
+                            <input class="form-control" asp-for="LastName">
+                            <span asp-validation-for="LastName" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label asp-for="UserName" class="col-md-2 col-form-label"></label>
+                        <div class="col-md-10">
+                            <input class="form-control" asp-for="UserName">
+                            <span asp-validation-for="UserName" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label asp-for="Email" class="col-md-2 col-form-label"></label>
+                        <div class="col-md-10">
+                            <input class="form-control" asp-for="Email">
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-10 offset-md-2">
+                            <button type="submit" class="btn btn-primary">Save Changes</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" asp-for="EmailConfirmed">
+                        <label class="custom-control-label" asp-for="EmailConfirmed"></label>
+                    </div>
+                    <hr>
+                    @foreach (var role in (List<string>)ViewBag.roles)
+                    {
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="@role" name="selectedRoles" value="@role" @(Model.SelectedRoles.Any(i => i == role) ? "checked" : "")>
+                            <label class="custom-control-label" for="@role">@role</label>
+                        </div>
+                    }
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

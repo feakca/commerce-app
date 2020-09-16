@@ -1,0 +1,57 @@
+﻿@model RegisterModel
+
+<h1 class="h3">Register</h1>
+<hr>
+<form asp-controller="Account" asp-action="Register" method="post">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="form-group row">
+                <label asp-for="FirstName" class="col-md-2 col-form-label"></label>
+                <div class="col-md-10">
+                    <input class="form-control" asp-for="FirstName">
+                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="LastName" class="col-md-2 col-form-label"></label>
+                <div class="col-md-10">
+                    <input class="form-control" asp-for="LastName">
+                    <span asp-validation-for="LastName" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="UserName" class="col-md-2 col-form-label"></label>
+                <div class="col-md-10">
+                    <input class="form-control" asp-for="UserName">
+                    <span asp-validation-for="UserName" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="Password" class="col-md-2 col-form-label"></label>
+                <div class="col-md-10">
+                    <input class="form-control" asp-for="Password">
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="RePassword" class="col-md-2 col-form-label"></label>
+                <div class="col-md-10">
+                    <input class="form-control" asp-for="RePassword">
+                    <span asp-validation-for="RePassword" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="Email" class="col-md-2 col-form-label"></label>
+                <div class="col-md-10">
+                    <input class="form-control" asp-for="Email">
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-10 offset-md-2">
+                    <button type="submit" class="btn btn-primary">Register</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
